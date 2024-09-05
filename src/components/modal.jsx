@@ -1,7 +1,7 @@
-const Modal = () => {
+const Modal = ({ close }) => {
   return (
     <>
-      <dialog>
+      <dialog className="block">
         <span>Delete comment</span>
         <p>
           Are you sure you want to delete this comment? This will remove the
@@ -9,7 +9,9 @@ const Modal = () => {
         </p>
         <div>
           <button className="uppercase">no , cancel</button>
-          <button className="uppercase">yes, delete</button>
+          <button onClick={() => close(false)} className="uppercase">
+            yes, delete
+          </button>
         </div>
       </dialog>
     </>

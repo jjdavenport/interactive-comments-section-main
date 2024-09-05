@@ -7,6 +7,7 @@ import minus from "./components/assets/icon-minus.svg";
 import Reply from "./components/reply";
 import Delete from "./components/delete";
 import Edit from "./components/edit";
+import Modal from "./components/modal";
 
 function App() {
   const currentUser = data.currentUser;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Modal from "./modal";
 
 const Comment = ({
   png,
@@ -16,6 +17,8 @@ const Comment = ({
 }) => {
   const [count, setCount] = useState(score);
   const [vote, setVote] = useState(0);
+  const [modal, setModal] = useState(false);
+  const open = () => setModal(true);
 
   const increment = () => {
     if (vote < 1) {
@@ -39,7 +42,7 @@ const Comment = ({
           <span>{createdAt}</span>
         </div>
         <p>
-          {replyTo}
+          {replyTo ? `@${replyTo}` : null}
           <span>{content}</span>
         </p>
         <div className="flex gap-2">
@@ -63,10 +66,11 @@ const Comment = ({
         </div>
         <div className="flex gap-4">
           {EditBtn && <EditBtn />}
-          {DeleteBtn && <DeleteBtn />}
+          {DeleteBtn && <DeleteBtn open={open} />}
           {ReplyBtn && <ReplyBtn />}
         </div>
       </article>
+      {modal && <Modal close={setModal} />}
     </>
   );
 };

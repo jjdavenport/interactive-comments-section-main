@@ -1,9 +1,9 @@
 import icon from "./assets/icon-delete.svg";
 
-const Delete = () => {
+const Delete = ({ open }) => {
   return (
     <>
-      <button>
+      <button onClick={open}>
         <img src={icon} alt={icon} />
         Delete
       </button>
