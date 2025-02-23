@@ -1,4 +1,4 @@
-import icon from "./assets/icon-delete.svg";
+import icon from "../assets/icon-delete.svg";
 
 const Delete = ({ open }) => {
   return (

@@ -1,4 +1,4 @@
-import icon from "./assets/icon-edit.svg";
+import icon from "../assets/icon-edit.svg";
 
 const Edit = () => {
   return (

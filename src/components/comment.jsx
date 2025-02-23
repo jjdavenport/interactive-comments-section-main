@@ -1,76 +1,31 @@
-import { useState } from "react";
-import Modal from "./modal";
+import Reply from "./reply";
+import RatingButton from "./rating-button";
+import Button from "./button";
 
-const Comment = ({
-  png,
-  webp,
-  username,
-  createdAt,
-  content,
-  score,
-  plus,
-  minus,
-  replyTo,
-  editBtn: EditBtn,
-  replyBtn: ReplyBtn,
-  deleteBtn: DeleteBtn,
-}) => {
-  const [count, setCount] = useState(score);
-  const [vote, setVote] = useState(0);
-  const [modal, setModal] = useState(false);
-  const open = () => setModal(true);
-
-  const increment = () => {
-    if (vote < 1) {
-      setCount(count + 1);
-      setVote(vote + 1);
-    }
-  };
-
-  const decrement = () => {
-    if (vote > -1) {
-      setCount(count - 1);
-      setVote(vote - 1);
-    }
-  };
+const Comment = ({ data, user }) => {
+  const replies = data.replies;
   return (
     <>
-      <article>
-        <div className="flex">
-          <img src={png} alt={webp} />
-          <span>{username}</span>
-          <span>{createdAt}</span>
+      <article className="bg-lightGrayishBlue p-4">
+        <div className="flex justify-between">
+          <img src={data.user.image.webp} />
+          <span>{data.user.username}</span>
+          <span>{data.createdAt}</span>
         </div>
-        <p>
-          {replyTo ? `@${replyTo}` : null}
-          <span>{content}</span>
-        </p>
-        <div className="flex gap-2">
-          <button
-            onClick={increment}
-            className={`${vote > 0 ? "bg-black" : "bg-white"}`}
-          >
-            <img src={plus} alt={plus} />
-          </button>
-          <span
-            className={`${vote > 0 || vote < 0 ? "bg-blue-500" : "bg-white"}`}
-          >
-            {count}
-          </span>
-          <button
-            onClick={decrement}
-            className={`${vote < 0 ? "bg-black" : "bg-white"}`}
-          >
-            <img src={minus} alt={minus} />
-          </button>
-        </div>
-        <div className="flex gap-4">
-          {EditBtn && <EditBtn />}
-          {DeleteBtn && <DeleteBtn open={open} />}
-          {ReplyBtn && <ReplyBtn />}
+        <p>{data.content}</p>
+        <div>
+          <RatingButton score={data.score} />
         </div>
       </article>
-      {modal && <Modal close={setModal} />}
+      <ul className="flex flex-col gap-4 border-l pl-4">
+        {replies.map((i) => (
+          <>
+            <li>
+              <Reply user={user} key={i.id} data={i} />
+            </li>
+          </>
+        ))}
+      </ul>
     </>
   );
 };
