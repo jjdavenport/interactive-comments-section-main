@@ -3,7 +3,7 @@ import editIcon from "../assets/icon-edit.svg";
 import deleteIcon from "../assets/icon-delete.svg";
 
 const Button = ({ type, onClick, className }) => {
-  const propType = [
+  const props =
     type === "delete"
       ? {
           src: deleteIcon,
@@ -12,21 +12,21 @@ const Button = ({ type, onClick, className }) => {
       : type === "edit"
         ? {
             src: editIcon,
-            text: "edit",
+            text: "Edit",
           }
         : {
             src: replyIcon,
-            text: "reply",
-          },
-  ];
+            text: "Reply",
+          };
 
   return (
-    <>
-      <button className={`${className} flex gap-1`} onClick={onClick}>
-        <img src={propType} />
-        {propType}
-      </button>
-    </>
+    <button
+      className={`${className} flex items-center gap-1`}
+      onClick={onClick}
+    >
+      <img src={props.src} alt={props.text} />
+      <span>{props.text}</span>
+    </button>
   );
 };
 

@@ -1,13 +1,18 @@
-const Add = ({ profileIcon }) => {
+const Add = ({ img }) => {
   return (
     <>
-      <div>
-        <input placeholder="Add a comment…" type="text" />
-        <div>
-          <img src={profileIcon} />
-          <button className="uppercase">send</button>
+      <form noValidate className="bg-white p-4">
+        <textarea
+          className="w-full resize-none appearance-none border border-gray-400 p-4 focus:outline-none"
+          placeholder="Add a comment…"
+        />
+        <div className="flex justify-between">
+          <img src={img} />
+          <button type="submit" className="uppercase">
+            send
+          </button>
         </div>
-      </div>
+      </form>
     </>
   );
 };

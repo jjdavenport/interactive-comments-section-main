@@ -1,4 +1,5 @@
 import RatingButton from "./rating-button";
+import Button from "./button";
 
 const Reply = ({ data, user }) => {
   const currentUser = () => {
@@ -6,7 +7,7 @@ const Reply = ({ data, user }) => {
   };
   return (
     <>
-      <article className="bg-lightGrayishBlue p-4">
+      <article className="bg-white p-4">
         <div className="flex justify-between">
           <img src={data.user.image.webp} />
           <span>
@@ -17,8 +18,18 @@ const Reply = ({ data, user }) => {
         <p className="inline">
           <span>@{data.user.username}</span> {data.content}
         </p>
-        <div>
+        <div className="flex justify-between">
           <RatingButton score={data.score} />
+          {data.user.username !== user ? (
+            <Button type="reply" />
+          ) : (
+            <>
+              <div className="flex gap-2">
+                <Button type="delete" />
+                <Button type="edit " />
+              </div>
+            </>
+          )}
         </div>
       </article>
     </>
