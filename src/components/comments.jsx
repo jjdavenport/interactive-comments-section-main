@@ -6,7 +6,7 @@ const Commments = () => {
   const comments = data.comments;
   return (
     <>
-      <main className="flex flex-1 flex-col gap-4 p-4">
+      <main className="flex flex-1 flex-col gap-4 px-4 py-8">
         {comments.map((i) => (
           <Comment user={data.currentUser.username} key={i.id} data={i} />
         ))}

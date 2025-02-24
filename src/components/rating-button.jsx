@@ -15,13 +15,21 @@ const RatingButton = ({ score }) => {
 
   return (
     <>
-      <div className="flex gap-2">
-        <button onClick={increment} disabled={count === score + 1}>
-          <img className="w-4 bg-black" src={plusIcon} alt="Increment" />
+      <div className="flex items-center gap-1 rounded-xl bg-veryLightGray">
+        <button
+          className="p-4"
+          onClick={increment}
+          disabled={count === score + 1}
+        >
+          <img className="w-3" src={plusIcon} alt="Increment" />
         </button>
-        <span>{count}</span>
-        <button onClick={decrement} disabled={count === score - 1}>
-          <img className="w-4 bg-black" src={minusIcon} alt="Decrement" />
+        <span className="font-medium text-moderateBlue">{count}</span>
+        <button
+          className="p-4"
+          onClick={decrement}
+          disabled={count === score - 1}
+        >
+          <img className="w-3" src={minusIcon} alt="Decrement" />
         </button>
       </div>
     </>

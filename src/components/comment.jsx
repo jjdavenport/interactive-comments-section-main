@@ -6,13 +6,15 @@ const Comment = ({ data, user }) => {
   const replies = data.replies;
   return (
     <>
-      <article className="bg-white p-4">
-        <div className="flex justify-between">
-          <img src={data.user.image.webp} />
-          <span>{data.user.username}</span>
-          <span>{data.createdAt}</span>
+      <article className="flex flex-col gap-4 rounded-lg bg-white p-4">
+        <div className="flex items-center gap-4">
+          <img className="w-8" src={data.user.image.webp} />
+          <span className="font-medium text-darkBlue">
+            {data.user.username}
+          </span>
+          <span className="text-grayishBlue">{data.createdAt}</span>
         </div>
-        <p>{data.content}</p>
+        <p className="text-grayishBlue">{data.content}</p>
         <div className="flex justify-between">
           <RatingButton score={data.score} />
           {data.user.username !== user ? (
@@ -28,7 +30,7 @@ const Comment = ({ data, user }) => {
         </div>
       </article>
       {replies.length > 0 && (
-        <ul className="flex flex-col gap-4 border-l pl-4">
+        <ul className="flex flex-col gap-4 border-l-2 border-lightGray pl-4">
           {replies.map((i) => (
             <>
               <li>

@@ -1,14 +1,17 @@
 const Add = ({ img }) => {
   return (
     <>
-      <form noValidate className="bg-white p-4">
+      <form noValidate className="flex flex-col gap-4 rounded-lg bg-white p-4">
         <textarea
-          className="w-full resize-none appearance-none border border-gray-400 p-4 focus:outline-none"
+          className="h-24 w-full resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 focus:outline-none"
           placeholder="Add a comment…"
         />
         <div className="flex justify-between">
-          <img src={img} />
-          <button type="submit" className="uppercase">
+          <img className="w-8 object-contain" src={img} />
+          <button
+            type="submit"
+            className="rounded-lg bg-moderateBlue px-8 py-[0.625rem] uppercase text-white"
+          >
             send
           </button>
         </div>
