@@ -2,8 +2,51 @@ import Reply from "./reply";
 import RatingButton from "./rating-button";
 import Button from "./button";
 
-const Comment = ({ data, user }) => {
+const Comment = ({ data, user, desktop }) => {
   const replies = data.replies;
+  if (desktop) {
+    return (
+      <>
+        <article className="flex gap-6 rounded-lg bg-white p-4">
+          <RatingButton score={data.score} />
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between">
+              <div className="flex items-center gap-4">
+                <img className="w-8" src={data.user.image.webp} />
+                <span className="font-medium text-darkBlue">
+                  {data.user.username}
+                </span>
+                <span className="text-grayishBlue">{data.createdAt}</span>
+              </div>
+              {data.user.username !== user ? (
+                <Button type="reply" />
+              ) : (
+                <>
+                  <div>
+                    <Button type="delete" />
+                    <Button type="edit" />
+                  </div>
+                </>
+              )}
+            </div>
+            <p className="text-grayishBlue">{data.content}</p>
+          </div>
+        </article>
+        {replies.length > 0 && (
+          <ul className="ml-8 flex flex-col gap-4 border-l-2 border-lightGray pl-8">
+            {replies.map((i) => (
+              <>
+                <li>
+                  <Reply desktop={desktop} user={user} key={i.id} data={i} />
+                </li>
+              </>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       <article className="flex flex-col gap-4 rounded-lg bg-white p-4">

@@ -1,7 +1,39 @@
 import RatingButton from "./rating-button";
 import Button from "./button";
 
-const Reply = ({ data, user }) => {
+const Reply = ({ data, user, desktop }) => {
+  if (desktop) {
+    return (
+      <>
+        <article className="flex gap-6 rounded-lg bg-white p-4">
+          <RatingButton score={data.score} />
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between">
+              <div className="flex items-center gap-4">
+                <img className="w-8" src={data.user.image.webp} />
+                <span className="font-medium text-darkBlue">
+                  {data.user.username}
+                </span>
+                <span className="text-grayishBlue">{data.createdAt}</span>
+              </div>
+              {data.user.username !== user ? (
+                <Button type="reply" />
+              ) : (
+                <>
+                  <div className="flex gap-4">
+                    <Button type="delete" />
+                    <Button type="edit" />
+                  </div>
+                </>
+              )}
+            </div>
+            <p className="text-grayishBlue">{data.content}</p>
+          </div>
+        </article>
+      </>
+    );
+  }
+
   return (
     <>
       <article className="flex flex-col gap-4 rounded-lg bg-white p-4">

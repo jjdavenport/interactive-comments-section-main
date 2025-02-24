@@ -1,4 +1,29 @@
-const Add = ({ img }) => {
+const Add = ({ img, desktop }) => {
+  if (desktop) {
+    return (
+      <>
+        <form
+          noValidate
+          className="flex items-start gap-4 rounded-lg bg-white p-4"
+        >
+          <img className="w-8 object-contain" src={img} />
+          <textarea
+            className="h-24 w-full resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 focus:outline-none"
+            placeholder="Add a comment…"
+          />
+          <div className="flex justify-between">
+            <button
+              type="submit"
+              className="h-fit rounded-lg bg-moderateBlue px-8 py-[0.625rem] uppercase text-white"
+            >
+              send
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
   return (
     <>
       <form noValidate className="flex flex-col gap-4 rounded-lg bg-white p-4">
