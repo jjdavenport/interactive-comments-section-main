@@ -24,7 +24,7 @@ const Button = ({ type, onClick }) => {
 
   return (
     <button
-      className={`${props.className} flex items-center gap-2 font-medium`}
+      className={`${props.className} flex items-center gap-2 font-medium transition-opacity duration-300 ease-in-out hover:opacity-50`}
       onClick={onClick}
     >
       <img src={props.src} alt={props.text} />
