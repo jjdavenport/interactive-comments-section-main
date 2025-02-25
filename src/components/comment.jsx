@@ -1,9 +1,19 @@
 import Reply from "./reply";
 import RatingButton from "./rating-button";
 import Button from "./button";
+import { useEffect, useState } from "react";
 
 const Comment = ({ data, user, desktop }) => {
-  const replies = data.replies;
+  const [replies, setReplies] = useState(data.replies);
+
+  useEffect(() => {
+    console.log(replies);
+  }, []);
+
+  const deleteReply = (id) => {
+    setReplies((prev) => prev.filter((reply) => reply.id !== id));
+  };
+
   if (desktop) {
     return (
       <>
@@ -37,7 +47,13 @@ const Comment = ({ data, user, desktop }) => {
             {replies.map((i) => (
               <>
                 <li>
-                  <Reply desktop={desktop} user={user} key={i.id} data={i} />
+                  <Reply
+                    onDelete={() => deleteReply(i.id)}
+                    desktop={desktop}
+                    user={user}
+                    key={i.id}
+                    data={i}
+                  />
                 </li>
               </>
             ))}
@@ -77,7 +93,13 @@ const Comment = ({ data, user, desktop }) => {
           {replies.map((i) => (
             <>
               <li>
-                <Reply user={user} key={i.id} data={i} />
+                <Reply
+                  onDelete={() => deleteReply(i.id)}
+                  desktop={desktop}
+                  user={user}
+                  key={i.id}
+                  data={i}
+                />
               </li>
             </>
           ))}

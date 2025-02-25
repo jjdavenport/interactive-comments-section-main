@@ -1,5 +1,3 @@
-import plusIcon from "../assets/icon-plus.svg";
-import minusIcon from "../assets/icon-minus.svg";
 import { useState } from "react";
 
 const RatingButton = ({ score }) => {

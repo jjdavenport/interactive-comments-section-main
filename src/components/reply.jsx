@@ -1,7 +1,11 @@
 import RatingButton from "./rating-button";
 import Button from "./button";
+import Modal from "./modal";
+import { useState } from "react";
 
-const Reply = ({ data, user, desktop }) => {
+const Reply = ({ data, user, desktop, onDelete }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   if (desktop) {
     return (
       <>
@@ -21,7 +25,7 @@ const Reply = ({ data, user, desktop }) => {
               ) : (
                 <>
                   <div className="flex gap-4">
-                    <Button type="delete" />
+                    <Button onClick={() => setOpenModal(true)} type="delete" />
                     <Button type="edit" />
                   </div>
                 </>
@@ -30,6 +34,9 @@ const Reply = ({ data, user, desktop }) => {
             <p className="text-grayishBlue">{data.content}</p>
           </div>
         </article>
+        {openModal && (
+          <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
+        )}
       </>
     );
   }
@@ -71,6 +78,9 @@ const Reply = ({ data, user, desktop }) => {
           )}
         </div>
       </article>
+      {openModal && (
+        <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
+      )}
     </>
   );
 };
