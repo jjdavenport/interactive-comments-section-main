@@ -2,9 +2,11 @@ import Reply from "./reply";
 import RatingButton from "./rating-button";
 import Button from "./button";
 import { useEffect, useState } from "react";
+import Modal from "./modal";
 
-const Comment = ({ data, user, desktop }) => {
+const Comment = ({ data, user, desktop, onDelete }) => {
   const [replies, setReplies] = useState(data.replies);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     console.log(replies);
@@ -14,12 +16,16 @@ const Comment = ({ data, user, desktop }) => {
     setReplies((prev) => prev.filter((reply) => reply.id !== id));
   };
 
+  const addReply = (newReply) => {
+    setReplies((prev) => [...prev, newReply]);
+  };
+
   if (desktop) {
     return (
       <>
         <article className="flex gap-6 rounded-lg bg-white p-4">
           <RatingButton score={data.score} />
-          <div className="flex flex-col gap-4">
+          <div className="flex w-full flex-col gap-4">
             <div className="flex justify-between">
               <div className="flex items-center gap-4">
                 <img className="w-8" src={data.user.image.webp} />
@@ -32,8 +38,8 @@ const Comment = ({ data, user, desktop }) => {
                 <Button type="reply" />
               ) : (
                 <>
-                  <div>
-                    <Button type="delete" />
+                  <div className="flex gap-4">
+                    <Button onClick={() => setOpenModal(true)} type="delete" />
                     <Button type="edit" />
                   </div>
                 </>
@@ -59,6 +65,9 @@ const Comment = ({ data, user, desktop }) => {
             ))}
           </ul>
         )}
+        {openModal && (
+          <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
+        )}
       </>
     );
   }
@@ -81,7 +90,7 @@ const Comment = ({ data, user, desktop }) => {
           ) : (
             <>
               <div>
-                <Button type="delete" />
+                <Button onClick={() => setOpenModal(true)} type="delete" />
                 <Button type="edit " />
               </div>
             </>
@@ -104,6 +113,9 @@ const Comment = ({ data, user, desktop }) => {
             </>
           ))}
         </ul>
+      )}
+      {openModal && (
+        <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
       )}
     </>
   );

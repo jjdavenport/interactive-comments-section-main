@@ -1,14 +1,25 @@
-const Add = ({ img, desktop }) => {
+import { useState } from "react";
+
+const Add = ({ img, desktop, onSubmit }) => {
+  const [comment, setComment] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    comment !== "" ? onSubmit(comment) & setComment("") : null;
+  };
+
   if (desktop) {
     return (
       <>
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
           noValidate
           className="flex items-start gap-4 rounded-lg bg-white p-4"
         >
           <img className="w-8 object-contain" src={img} />
           <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             className="h-24 w-full cursor-pointer resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 text-darkBlue placeholder:text-grayishBlue focus:border-moderateBlue focus:outline-none"
             placeholder="Add a comment…"
           />
@@ -27,8 +38,14 @@ const Add = ({ img, desktop }) => {
 
   return (
     <>
-      <form noValidate className="flex flex-col gap-4 rounded-lg bg-white p-4">
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="flex flex-col gap-4 rounded-lg bg-white p-4"
+      >
         <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
           className="h-24 w-full resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 focus:outline-none"
           placeholder="Add a comment…"
         />

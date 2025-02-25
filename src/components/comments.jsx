@@ -4,13 +4,29 @@ import data from "../assets/data.json";
 import Add from "./add";
 import { useEffect, useState } from "react";
 
-const Commments = () => {
-  const [comments, setCommments] = useState(data.comments);
+const Comments = () => {
+  const [comments, setComments] = useState(data.comments);
   const desktop = useMediaQuery({ minWidth: 768 });
 
   useEffect(() => {
     console.log(comments);
   }, []);
+
+  const addComment = (comment) => {
+    const newComment = {
+      id: Date.now(),
+      content: comment,
+      createdAt: "just now",
+      score: 0,
+      user: data.currentUser,
+      replies: [],
+    };
+    setComments((prev) => [...prev, newComment]);
+  };
+
+  const deleteComment = (id) => {
+    setComments((prev) => prev.filter((comment) => comment.id !== id));
+  };
 
   return (
     <>
@@ -21,12 +37,17 @@ const Commments = () => {
             user={data.currentUser.username}
             key={i.id}
             data={i}
+            onDelete={() => deleteComment(i.id)}
           />
         ))}
-        <Add desktop={desktop} img={data.currentUser.image.webp} />
+        <Add
+          onSubmit={addComment}
+          desktop={desktop}
+          img={data.currentUser.image.webp}
+        />
       </main>
     </>
   );
 };
 
-export default Commments;
+export default Comments;
