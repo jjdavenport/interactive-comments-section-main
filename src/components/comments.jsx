@@ -32,13 +32,17 @@ const Comments = () => {
     <>
       <main className="flex flex-1 flex-col justify-center gap-4 px-4 py-8 md:max-w-screen-md">
         {comments.map((i) => (
-          <Comment
-            desktop={desktop}
-            user={data.currentUser.username}
-            key={i.id}
-            data={i}
-            onDelete={() => deleteComment(i.id)}
-          />
+          <>
+            <ul className="flex flex-col gap-4">
+              <Comment
+                desktop={desktop}
+                user={data.currentUser.username}
+                key={i.id}
+                data={i}
+                onDelete={() => deleteComment(i.id)}
+              />
+            </ul>
+          </>
         ))}
         <Add
           onSubmit={addComment}

@@ -15,7 +15,7 @@ const RatingButton = ({ score }) => {
     <>
       <div className="flex h-fit items-center gap-1 rounded-xl bg-veryLightGray md:flex-col">
         <button
-          className="group flex h-8 w-10 items-center justify-center p-2"
+          className="group flex h-10 w-10 items-center justify-center p-2 md:h-8"
           onClick={increment}
           disabled={count === score + 1}
         >
@@ -28,7 +28,7 @@ const RatingButton = ({ score }) => {
         </button>
         <span className="font-medium text-moderateBlue">{count}</span>
         <button
-          className="group flex h-8 w-10 items-center justify-center p-2"
+          className="group flex h-10 w-10 items-center justify-center p-2 md:h-8"
           onClick={decrement}
           disabled={count === score - 1}
         >

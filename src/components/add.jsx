@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Textarea from "./textarea";
 
 const Add = ({ img, desktop, onSubmit }) => {
   const [comment, setComment] = useState("");
@@ -14,19 +15,18 @@ const Add = ({ img, desktop, onSubmit }) => {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="flex items-start gap-4 rounded-lg bg-white p-4"
+          className="flex items-start gap-4 rounded-lg bg-white p-4 md:p-6"
         >
           <img className="w-8 object-contain" src={img} />
-          <textarea
+          <Textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="h-24 w-full cursor-pointer resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 text-darkBlue placeholder:text-grayishBlue focus:border-moderateBlue focus:outline-none"
             placeholder="Add a comment…"
           />
           <div className="flex justify-between">
             <button
               type="submit"
-              className="h-fit rounded-lg bg-moderateBlue px-8 py-[0.625rem] uppercase text-white caret-moderateBlue transition-opacity duration-300 ease-in-out hover:opacity-50"
+              className="h-fit rounded-lg bg-moderateBlue px-7 py-[0.625rem] uppercase text-white caret-moderateBlue transition-opacity duration-300 ease-in-out hover:opacity-50"
             >
               send
             </button>
