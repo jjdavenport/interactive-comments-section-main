@@ -5,22 +5,39 @@ import { useEffect, useState } from "react";
 import Modal from "./modal";
 import Textarea from "./textarea";
 import Profile from "./profile";
+import Add from "./add";
+import BlueButton from "./blue-button";
 
-const Comment = ({ data, user, desktop, onDelete }) => {
+const Comment = ({ data, user, desktop, onDelete, img }) => {
   const [replies, setReplies] = useState(data.replies);
   const [openModal, setOpenModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editComment, setEditComment] = useState(data.content);
+  const [reply, setReply] = useState(false);
+  const [replyComment, setReplyComment] = useState("");
 
   useEffect(() => {
     console.log(replies);
-  }, []);
+  }, [replies]);
 
   const deleteReply = (id) => {
     setReplies((prev) => prev.filter((reply) => reply.id !== id));
   };
 
-  const addReply = (newReply) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    reply !== "" ? addReply(replyComment) & setReplyComment("") : null;
+  };
+
+  const addReply = (reply) => {
+    const newReply = {
+      id: Date.now(),
+      content: reply,
+      createdAt: "just now",
+      score: 0,
+      user: data.currentUser,
+      replies: [],
+    };
     setReplies((prev) => [...prev, newReply]);
   };
 
@@ -34,7 +51,7 @@ const Comment = ({ data, user, desktop, onDelete }) => {
               <div className="flex w-full justify-between">
                 <Profile user={user} data={data} />
                 {data.user.username !== user ? (
-                  <Button type="reply" />
+                  <Button onClick={() => setReply(true)} type="reply" />
                 ) : (
                   <>
                     <div className="flex gap-6">
@@ -53,12 +70,7 @@ const Comment = ({ data, user, desktop, onDelete }) => {
                     onChange={(e) => setEditComment(e.target.value)}
                     value={editComment}
                   />
-                  <button
-                    onClick={() => setEdit(false)}
-                    className="h-fit w-fit rounded-lg bg-moderateBlue px-6 py-[0.625rem] uppercase text-white caret-moderateBlue transition-opacity duration-300 ease-in-out hover:opacity-50"
-                  >
-                    Update
-                  </button>
+                  <BlueButton onClick={() => setEdit(false)} text="Update" />
                 </>
               ) : (
                 <p className="w-full text-grayishBlue">{editComment}</p>
@@ -66,15 +78,30 @@ const Comment = ({ data, user, desktop, onDelete }) => {
             </div>
           </article>
         </li>
+        {reply && (
+          <li>
+            <Add
+              onSubmit={handleSubmit}
+              value={`@${data.user.username}, ${replyComment}`}
+              onChange={(e) => {
+                const newComment = e.target.value.split(" ").slice(1).join(" ");
+                setReplyComment(newComment);
+              }}
+              text="Reply"
+              desktop={desktop}
+              img={img}
+            />
+          </li>
+        )}
         {replies.length > 0 && (
           <ul className="ml-8 flex flex-col gap-4 border-l-2 border-lightGray pl-8">
             {replies.map((i) => (
               <>
                 <Reply
+                  key={i.id}
                   onDelete={() => deleteReply(i.id)}
                   desktop={desktop}
                   user={user}
-                  key={i.id}
                   data={i}
                 />
               </>
@@ -99,12 +126,7 @@ const Comment = ({ data, user, desktop, onDelete }) => {
                 onChange={(e) => setEditComment(e.target.value)}
                 value={editComment}
               />
-              <button
-                onClick={() => setEdit(false)}
-                className="h-fit w-fit rounded-lg bg-moderateBlue px-8 py-[0.625rem] uppercase text-white caret-moderateBlue transition-opacity duration-300 ease-in-out hover:opacity-50"
-              >
-                Update
-              </button>
+              <BlueButton onClick={() => setEdit(false)} text="Update" />
             </>
           ) : (
             <p className="w-full text-grayishBlue">{editComment}</p>
@@ -112,7 +134,7 @@ const Comment = ({ data, user, desktop, onDelete }) => {
           <div className="flex w-full justify-between">
             <RatingButton score={data.score} />
             {data.user.username !== user ? (
-              <Button type="reply" />
+              <Button onClick={() => setReply(true)} type="reply" />
             ) : (
               <>
                 <div className="flex gap-6">
@@ -124,6 +146,21 @@ const Comment = ({ data, user, desktop, onDelete }) => {
           </div>
         </article>
       </li>
+      {reply && (
+        <li>
+          <Add
+            onSubmit={handleSubmit}
+            value={`@${data.user.username}, ${replyComment}`}
+            onChange={(e) => {
+              const newComment = e.target.value.split(" ").slice(1).join(" ");
+              setReplyComment(newComment);
+            }}
+            text="Reply"
+            desktop={desktop}
+            img={img}
+          />
+        </li>
+      )}
       {replies.length > 0 && (
         <ul className="flex flex-col gap-4 border-l-2 border-lightGray pl-4">
           {replies.map((i) => (

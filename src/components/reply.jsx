@@ -4,6 +4,7 @@ import Button from "./button";
 import Modal from "./modal";
 import Profile from "./profile";
 import Textarea from "./textarea";
+import BlueButton from "./blue-button";
 
 const Reply = ({ data, user, desktop, onDelete }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -36,7 +37,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
               {edit ? (
                 <>
                   <Textarea
-                    value={`@${data.user.username} ${editReply}`}
+                    value={`@${data.user.username}, ${editReply}`}
                     onChange={(e) => {
                       const editedComment = e.target.value
                         .split(" ")
@@ -45,16 +46,11 @@ const Reply = ({ data, user, desktop, onDelete }) => {
                       setEditReply(editedComment);
                     }}
                   />
-                  <button
-                    onClick={() => setEdit(false)}
-                    className="h-fit w-fit rounded-lg bg-moderateBlue px-6 py-[0.625rem] uppercase text-white caret-moderateBlue transition-opacity duration-300 ease-in-out hover:opacity-50"
-                  >
-                    Update
-                  </button>
+                  <BlueButton text="Update" onClick={() => setEdit(false)} />
                 </>
               ) : (
                 <>
-                  <div className="inline">
+                  <div className="inline w-full">
                     <span className="inline cursor-pointer font-medium text-moderateBlue">
                       @{data.user.username}
                     </span>
@@ -81,7 +77,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
             {edit ? (
               <>
                 <Textarea
-                  value={`@${data.user.username} ${editReply}`}
+                  value={`@${data.user.username}, ${editReply}`}
                   onChange={(e) => {
                     const editedComment = e.target.value
                       .split(" ")

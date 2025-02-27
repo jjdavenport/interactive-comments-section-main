@@ -1,36 +1,22 @@
-import { useState } from "react";
 import Textarea from "./textarea";
+import BlueButton from "./blue-button";
 
-const Add = ({ img, desktop, onSubmit }) => {
-  const [comment, setComment] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    comment !== "" ? onSubmit(comment) & setComment("") : null;
-  };
-
+const Add = ({ img, desktop, onSubmit, text, value, onChange }) => {
   if (desktop) {
     return (
       <>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={onSubmit}
           noValidate
           className="flex items-start gap-4 rounded-lg bg-white p-4 md:p-6"
         >
-          <img className="w-8 object-contain" src={img} />
+          <img className="w-10 object-contain" src={img} />
           <Textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            value={value}
+            onChange={onChange}
             placeholder="Add a comment…"
           />
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="h-fit rounded-lg bg-moderateBlue px-7 py-[0.625rem] uppercase text-white caret-moderateBlue transition-opacity duration-300 ease-in-out hover:opacity-50"
-            >
-              send
-            </button>
-          </div>
+          <BlueButton text={text} />
         </form>
       </>
     );
@@ -39,24 +25,19 @@ const Add = ({ img, desktop, onSubmit }) => {
   return (
     <>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         noValidate
         className="flex flex-col gap-4 rounded-lg bg-white p-4"
       >
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+        <Textarea
+          value={value}
+          onChange={onChange}
           className="h-24 w-full resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 focus:outline-none"
           placeholder="Add a comment…"
         />
         <div className="flex justify-between">
           <img className="w-8 object-contain" src={img} />
-          <button
-            type="submit"
-            className="rounded-lg bg-moderateBlue px-8 py-[0.625rem] uppercase text-white"
-          >
-            send
-          </button>
+          <BlueButton text={text} />
         </div>
       </form>
     </>

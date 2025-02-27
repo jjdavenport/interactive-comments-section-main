@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 const Comments = () => {
   const [comments, setComments] = useState(data.comments);
+  const [comment, setComment] = useState("");
   const desktop = useMediaQuery({ minWidth: 768 });
 
   useEffect(() => {
@@ -28,6 +29,11 @@ const Comments = () => {
     setComments((prev) => prev.filter((comment) => comment.id !== id));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    comment !== "" ? addComment(comment) & setComment("") : null;
+  };
+
   return (
     <>
       <main className="flex flex-1 flex-col justify-center gap-4 px-4 py-8 md:max-w-screen-md">
@@ -40,12 +46,16 @@ const Comments = () => {
                 key={i.id}
                 data={i}
                 onDelete={() => deleteComment(i.id)}
+                img={data.currentUser.image.webp}
               />
             </ul>
           </>
         ))}
         <Add
-          onSubmit={addComment}
+          text="Send"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          onSubmit={handleSubmit}
           desktop={desktop}
           img={data.currentUser.image.webp}
         />
