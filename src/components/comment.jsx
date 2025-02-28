@@ -51,7 +51,7 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
               <div className="flex w-full justify-between">
                 <Profile user={user} data={data} />
                 {data.user.username !== user ? (
-                  <Button onClick={() => setReply(true)} type="reply" />
+                  <Button onClick={() => setReply(!reply)} type="reply" />
                 ) : (
                   <>
                     <div className="flex gap-6">
@@ -59,7 +59,7 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
                         onClick={() => setOpenModal(true)}
                         type="delete"
                       />
-                      <Button onClick={() => setEdit(true)} type="edit" />
+                      <Button onClick={() => setEdit(!edit)} type="edit" />
                     </div>
                   </>
                 )}
@@ -70,7 +70,7 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
                     onChange={(e) => setEditComment(e.target.value)}
                     value={editComment}
                   />
-                  <BlueButton onClick={() => setEdit(false)} text="Update" />
+                  <BlueButton onClick={() => setEdit(!edit)} text="Update" />
                 </>
               ) : (
                 <p className="w-full text-grayishBlue">{editComment}</p>
@@ -103,6 +103,7 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
                   desktop={desktop}
                   user={user}
                   data={i}
+                  img={img}
                 />
               </>
             ))}
@@ -126,7 +127,7 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
                 onChange={(e) => setEditComment(e.target.value)}
                 value={editComment}
               />
-              <BlueButton onClick={() => setEdit(false)} text="Update" />
+              <BlueButton onClick={() => setEdit(!edit)} text="Update" />
             </>
           ) : (
             <p className="w-full text-grayishBlue">{editComment}</p>
@@ -134,12 +135,12 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
           <div className="flex w-full justify-between">
             <RatingButton score={data.score} />
             {data.user.username !== user ? (
-              <Button onClick={() => setReply(true)} type="reply" />
+              <Button onClick={() => setReply(!reply)} type="reply" />
             ) : (
               <>
                 <div className="flex gap-6">
                   <Button onClick={() => setOpenModal(true)} type="delete" />
-                  <Button onClick={() => setEdit(true)} type="edit" />
+                  <Button onClick={() => setEdit(!edit)} type="edit" />
                 </div>
               </>
             )}
@@ -171,6 +172,7 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
                 user={user}
                 key={i.id}
                 data={i}
+                img={img}
               />
             </>
           ))}

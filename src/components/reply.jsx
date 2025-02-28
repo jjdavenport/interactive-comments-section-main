@@ -5,11 +5,14 @@ import Modal from "./modal";
 import Profile from "./profile";
 import Textarea from "./textarea";
 import BlueButton from "./blue-button";
+import Add from "./add";
 
-const Reply = ({ data, user, desktop, onDelete }) => {
+const Reply = ({ data, user, desktop, onDelete, img }) => {
   const [openModal, setOpenModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editReply, setEditReply] = useState(data.content);
+  const [reply, setReply] = useState(false);
+  const [replyComment, setReplyComment] = useState("");
 
   if (desktop) {
     return (
@@ -21,7 +24,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
               <div className="flex w-full justify-between">
                 <Profile user={user} data={data} />
                 {data.user.username !== user ? (
-                  <Button type="reply" />
+                  <Button onClick={() => setReply(!reply)} type="reply" />
                 ) : (
                   <>
                     <div className="flex gap-6">
@@ -29,7 +32,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
                         onClick={() => setOpenModal(true)}
                         type="delete"
                       />
-                      <Button onClick={() => setEdit(true)} type="edit" />
+                      <Button onClick={() => setEdit(!edit)} type="edit" />
                     </div>
                   </>
                 )}
@@ -37,7 +40,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
               {edit ? (
                 <>
                   <Textarea
-                    value={`@${data.user.username}, ${editReply}`}
+                    value={`@${data.replyingTo}, ${editReply}`}
                     onChange={(e) => {
                       const editedComment = e.target.value
                         .split(" ")
@@ -46,13 +49,13 @@ const Reply = ({ data, user, desktop, onDelete }) => {
                       setEditReply(editedComment);
                     }}
                   />
-                  <BlueButton text="Update" onClick={() => setEdit(false)} />
+                  <BlueButton text="Update" onClick={() => setEdit(!edit)} />
                 </>
               ) : (
                 <>
                   <div className="inline w-full">
                     <span className="inline cursor-pointer font-medium text-moderateBlue">
-                      @{data.user.username}
+                      @{data.replyingTo}
                     </span>
                     <p className="inline pl-1 text-grayishBlue">{editReply}</p>
                   </div>
@@ -61,6 +64,17 @@ const Reply = ({ data, user, desktop, onDelete }) => {
             </div>
           </article>
         </li>
+        {reply && (
+          <Add
+            value={`@${data.user.username}, ${replyComment}`}
+            onChange={(e) => {
+              const replyComment = e.target.value.split(" ").slice(1).join(" ");
+              setReplyComment(replyComment);
+            }}
+            text="Reply"
+            img={img}
+          />
+        )}
         {openModal && (
           <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
         )}
@@ -77,7 +91,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
             {edit ? (
               <>
                 <Textarea
-                  value={`@${data.user.username}, ${editReply}`}
+                  value={`@${data.replyingTo}, ${editReply}`}
                   onChange={(e) => {
                     const editedComment = e.target.value
                       .split(" ")
@@ -87,7 +101,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
                   }}
                 />
                 <button
-                  onClick={() => setEdit(false)}
+                  onClick={() => setEdit(!edit)}
                   className="h-fit w-fit rounded-lg bg-moderateBlue px-6 py-[0.625rem] uppercase text-white caret-moderateBlue transition-opacity duration-300 ease-in-out hover:opacity-50"
                 >
                   Update
@@ -97,7 +111,7 @@ const Reply = ({ data, user, desktop, onDelete }) => {
               <>
                 <div className="inline">
                   <span className="inline cursor-pointer font-medium text-moderateBlue">
-                    @{data.user.username}
+                    @{data.replyingTo}
                   </span>
                   <p className="inline pl-1 text-grayishBlue">{editReply}</p>
                 </div>
@@ -107,18 +121,29 @@ const Reply = ({ data, user, desktop, onDelete }) => {
           <div className="flex w-full items-center justify-between">
             <RatingButton score={data.score} />
             {data.user.username !== user ? (
-              <Button type="reply" />
+              <Button onClick={() => setReply(!reply)} type="reply" />
             ) : (
               <>
                 <div className="flex gap-6">
                   <Button onClick={() => setOpenModal(true)} type="delete" />
-                  <Button onClick={() => setEdit(true)} type="edit" />
+                  <Button onClick={() => setEdit(!edit)} type="edit" />
                 </div>
               </>
             )}
           </div>
         </article>
       </li>
+      {reply && (
+        <Add
+          value={`@${data.user.username}, ${replyComment}`}
+          onChange={(e) => {
+            const replyComment = e.target.value.split(" ").slice(1).join(" ");
+            setReplyComment(replyComment);
+          }}
+          text="Reply"
+          img={img}
+        />
+      )}
       {openModal && (
         <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
       )}
