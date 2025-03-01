@@ -1,44 +1,35 @@
+import { useState } from "react";
 import Reply from "./reply";
 import RatingButton from "./rating-button";
 import Button from "./button";
-import { useEffect, useState } from "react";
 import Modal from "./modal";
 import Textarea from "./textarea";
 import Profile from "./profile";
 import Add from "./add";
 import BlueButton from "./blue-button";
 
-const Comment = ({ data, user, desktop, onDelete, img }) => {
-  const [replies, setReplies] = useState(data.replies);
+const Comment = ({
+  data,
+  user,
+  desktop,
+  onDelete,
+  img,
+  onReply,
+  onDeleteReply,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editComment, setEditComment] = useState(data.content);
   const [reply, setReply] = useState(false);
   const [replyComment, setReplyComment] = useState("");
 
-  useEffect(() => {
-    console.log(replies);
-  }, [replies]);
-
-  const deleteReply = (id) => {
-    setReplies((prev) => prev.filter((reply) => reply.id !== id));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    reply !== "" ? addReply(replyComment) & setReplyComment("") : null;
-  };
-
-  const addReply = (reply) => {
-    const newReply = {
-      id: Date.now(),
-      content: reply,
-      createdAt: "just now",
-      score: 0,
-      user: data.currentUser,
-      replies: [],
-    };
-    setReplies((prev) => [...prev, newReply]);
+    replyComment !== ""
+      ? onReply(replyComment, data.user.username) &
+        setReplyComment("") &
+        setReply(false)
+      : null;
   };
 
   if (desktop) {
@@ -93,13 +84,14 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
             />
           </li>
         )}
-        {replies.length > 0 && (
+        {data.replies.length > 0 && (
           <ul className="ml-8 flex flex-col gap-4 border-l-2 border-lightGray pl-8">
-            {replies.map((i) => (
+            {data.replies.map((i) => (
               <>
                 <Reply
+                  onReply={onReply}
                   key={i.id}
-                  onDelete={() => deleteReply(i.id)}
+                  onDeleteReply={() => onDeleteReply(i.id)}
                   desktop={desktop}
                   user={user}
                   data={i}
@@ -162,12 +154,13 @@ const Comment = ({ data, user, desktop, onDelete, img }) => {
           />
         </li>
       )}
-      {replies.length > 0 && (
+      {data.replies.length > 0 && (
         <ul className="flex flex-col gap-4 border-l-2 border-lightGray pl-4">
-          {replies.map((i) => (
+          {data.replies.map((i) => (
             <>
               <Reply
-                onDelete={() => deleteReply(i.id)}
+                onReply={onReply}
+                onDeleteReply={() => onDeleteReply(i.id)}
                 desktop={desktop}
                 user={user}
                 key={i.id}

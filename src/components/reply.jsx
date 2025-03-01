@@ -7,12 +7,21 @@ import Textarea from "./textarea";
 import BlueButton from "./blue-button";
 import Add from "./add";
 
-const Reply = ({ data, user, desktop, onDelete, img }) => {
+const Reply = ({ data, user, desktop, onDeleteReply, img, onReply }) => {
   const [openModal, setOpenModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editReply, setEditReply] = useState(data.content);
   const [reply, setReply] = useState(false);
   const [replyComment, setReplyComment] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    replyComment !== ""
+      ? onReply(replyComment, data.user.username) &
+        setReplyComment("") &
+        setReply(false)
+      : null;
+  };
 
   if (desktop) {
     return (
@@ -66,6 +75,7 @@ const Reply = ({ data, user, desktop, onDelete, img }) => {
         </li>
         {reply && (
           <Add
+            onSubmit={handleSubmit}
             value={`@${data.user.username}, ${replyComment}`}
             onChange={(e) => {
               const replyComment = e.target.value.split(" ").slice(1).join(" ");
@@ -76,7 +86,7 @@ const Reply = ({ data, user, desktop, onDelete, img }) => {
           />
         )}
         {openModal && (
-          <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
+          <Modal onClose={() => setOpenModal(false)} onDelete={onDeleteReply} />
         )}
       </>
     );
@@ -109,7 +119,7 @@ const Reply = ({ data, user, desktop, onDelete, img }) => {
               </>
             ) : (
               <>
-                <div className="inline">
+                <div className="inline w-full">
                   <span className="inline cursor-pointer font-medium text-moderateBlue">
                     @{data.replyingTo}
                   </span>
@@ -135,6 +145,7 @@ const Reply = ({ data, user, desktop, onDelete, img }) => {
       </li>
       {reply && (
         <Add
+          onSubmit={handleSubmit}
           value={`@${data.user.username}, ${replyComment}`}
           onChange={(e) => {
             const replyComment = e.target.value.split(" ").slice(1).join(" ");
@@ -145,7 +156,7 @@ const Reply = ({ data, user, desktop, onDelete, img }) => {
         />
       )}
       {openModal && (
-        <Modal onClose={() => setOpenModal(false)} onDelete={onDelete} />
+        <Modal onClose={() => setOpenModal(false)} onDelete={onDeleteReply} />
       )}
     </>
   );
