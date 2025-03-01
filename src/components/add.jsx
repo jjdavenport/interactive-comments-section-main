@@ -1,7 +1,7 @@
 import Textarea from "./textarea";
 import BlueButton from "./blue-button";
 
-const Add = ({ img, desktop, onSubmit, text, value, onChange }) => {
+const Add = ({ img, desktop, onSubmit, text, value, onChange, autoFocus }) => {
   if (desktop) {
     return (
       <>
@@ -12,6 +12,7 @@ const Add = ({ img, desktop, onSubmit, text, value, onChange }) => {
         >
           <img className="w-10 object-contain" src={img} />
           <Textarea
+            autoFocus={autoFocus}
             value={value}
             onChange={onChange}
             placeholder="Add a comment…"
@@ -30,6 +31,7 @@ const Add = ({ img, desktop, onSubmit, text, value, onChange }) => {
         className="flex flex-col gap-4 rounded-lg bg-white p-4"
       >
         <Textarea
+          autoFocus={autoFocus}
           value={value}
           onChange={onChange}
           className="h-24 w-full resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 focus:outline-none"

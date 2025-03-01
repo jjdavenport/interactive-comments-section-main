@@ -49,6 +49,7 @@ const Reply = ({ data, user, desktop, onDeleteReply, img, onReply }) => {
               {edit ? (
                 <>
                   <Textarea
+                    autoFocus={true}
                     value={`@${data.replyingTo}, ${editReply}`}
                     onChange={(e) => {
                       const editedComment = e.target.value
@@ -75,6 +76,7 @@ const Reply = ({ data, user, desktop, onDeleteReply, img, onReply }) => {
         </li>
         {reply && (
           <Add
+            autoFocus={true}
             onSubmit={handleSubmit}
             value={`@${data.user.username}, ${replyComment}`}
             onChange={(e) => {
@@ -101,6 +103,7 @@ const Reply = ({ data, user, desktop, onDeleteReply, img, onReply }) => {
             {edit ? (
               <>
                 <Textarea
+                  autoFocus={true}
                   value={`@${data.replyingTo}, ${editReply}`}
                   onChange={(e) => {
                     const editedComment = e.target.value
@@ -145,6 +148,7 @@ const Reply = ({ data, user, desktop, onDeleteReply, img, onReply }) => {
       </li>
       {reply && (
         <Add
+          autoFocus={true}
           onSubmit={handleSubmit}
           value={`@${data.user.username}, ${replyComment}`}
           onChange={(e) => {

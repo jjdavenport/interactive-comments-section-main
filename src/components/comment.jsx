@@ -58,6 +58,7 @@ const Comment = ({
               {edit ? (
                 <>
                   <Textarea
+                    autoFocus={true}
                     onChange={(e) => setEditComment(e.target.value)}
                     value={editComment}
                   />
@@ -72,6 +73,7 @@ const Comment = ({
         {reply && (
           <li>
             <Add
+              autoFocus={true}
               onSubmit={handleSubmit}
               value={`@${data.user.username}, ${replyComment}`}
               onChange={(e) => {
@@ -116,6 +118,7 @@ const Comment = ({
           {edit ? (
             <>
               <Textarea
+                autoFocus={true}
                 onChange={(e) => setEditComment(e.target.value)}
                 value={editComment}
               />
@@ -142,6 +145,7 @@ const Comment = ({
       {reply && (
         <li>
           <Add
+            autoFocus={true}
             onSubmit={handleSubmit}
             value={`@${data.user.username}, ${replyComment}`}
             onChange={(e) => {
