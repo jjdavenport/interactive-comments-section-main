@@ -4,9 +4,10 @@ const Textarea = ({ value, onChange, placeholder, autoFocus }) => {
   const textareaRef = useRef(null);
 
   useEffect(() => {
-    autoFocus && textareaRef.current;
-    textareaRef.current.focus();
-    textareaRef.current.setSelectionRange(value.length, value.length);
+    autoFocus && textareaRef.current
+      ? textareaRef.current.focus() &
+        textareaRef.current.setSelectionRange(value.length, value.length)
+      : null;
   }, [autoFocus, value]);
 
   return (
