@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Modal = ({ onClose, onDelete }) => {
   return (
     <>
@@ -28,6 +30,11 @@ const Modal = ({ onClose, onDelete }) => {
       </div>
     </>
   );
+};
+
+Modal.defaultProps = {
+  onClose: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default Modal;

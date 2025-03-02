@@ -1,5 +1,6 @@
 import Textarea from "./textarea";
 import BlueButton from "./blue-button";
+import PropTypes from "prop-types";
 
 const Add = ({ img, desktop, onSubmit, text, value, onChange, autoFocus }) => {
   if (desktop) {
@@ -44,6 +45,16 @@ const Add = ({ img, desktop, onSubmit, text, value, onChange, autoFocus }) => {
       </form>
     </>
   );
+};
+
+Add.propTypes = {
+  img: PropTypes.string.isRequired,
+  desktop: PropTypes.bool,
+  text: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  autoFocus: PropTypes.bool.isRequired,
 };
 
 export default Add;

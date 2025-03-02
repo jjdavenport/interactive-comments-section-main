@@ -71,18 +71,16 @@ const Comments = () => {
       <main className="flex flex-1 flex-col justify-center gap-4 px-4 py-8 md:max-w-screen-md">
         <ul className="flex flex-col gap-4">
           {comments.map((i) => (
-            <>
-              <Comment
-                key={i.id}
-                desktop={desktop}
-                user={data.currentUser.username}
-                data={i}
-                onDelete={() => deleteComment(i.id)}
-                onDeleteReply={(id) => deleteReply(i.id, id)}
-                img={data.currentUser.image.webp}
-                onReply={(reply, replyTo) => addReply(i.id, reply, replyTo)}
-              />
-            </>
+            <Comment
+              key={i.id}
+              desktop={desktop}
+              user={data.currentUser.username}
+              data={i}
+              onDelete={() => deleteComment(i.id)}
+              onDeleteReply={(id) => deleteReply(i.id, id)}
+              img={data.currentUser.image.webp}
+              onReply={(reply, replyTo) => addReply(i.id, reply, replyTo)}
+            />
           ))}
         </ul>
         <Add

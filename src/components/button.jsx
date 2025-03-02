@@ -1,6 +1,7 @@
 import replyIcon from "../assets/icon-reply.svg";
 import editIcon from "../assets/icon-edit.svg";
 import deleteIcon from "../assets/icon-delete.svg";
+import PropTypes from "prop-types";
 
 const Button = ({ type, onClick }) => {
   const props =
@@ -31,6 +32,11 @@ const Button = ({ type, onClick }) => {
       <span>{props.text}</span>
     </button>
   );
+};
+
+Button.propTypes = {
+  type: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Button;

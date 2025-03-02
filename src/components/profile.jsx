@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Profile = ({ data, user }) => {
   return (
     <>
@@ -17,6 +19,11 @@ const Profile = ({ data, user }) => {
       </div>
     </>
   );
+};
+
+Profile.propTypes = {
+  data: PropTypes.object.isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 export default Profile;

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const BlueButton = ({ text, onClick }) => {
   return (
     <>
@@ -10,6 +12,11 @@ const BlueButton = ({ text, onClick }) => {
       </button>
     </>
   );
+};
+
+BlueButton.propTypes = {
+  text: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default BlueButton;

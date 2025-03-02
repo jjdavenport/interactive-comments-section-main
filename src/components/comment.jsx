@@ -7,6 +7,7 @@ import Textarea from "./textarea";
 import Profile from "./profile";
 import Add from "./add";
 import BlueButton from "./blue-button";
+import PropTypes from "prop-types";
 
 const Comment = ({
   data,
@@ -89,17 +90,15 @@ const Comment = ({
         {data.replies.length > 0 && (
           <ul className="ml-8 flex flex-col gap-4 border-l-2 border-lightGray pl-8">
             {data.replies.map((i) => (
-              <>
-                <Reply
-                  onReply={onReply}
-                  key={i.id}
-                  onDeleteReply={() => onDeleteReply(i.id)}
-                  desktop={desktop}
-                  user={user}
-                  data={i}
-                  img={img}
-                />
-              </>
+              <Reply
+                key={i.id}
+                onReply={onReply}
+                onDeleteReply={() => onDeleteReply(i.id)}
+                desktop={desktop}
+                user={user}
+                data={i}
+                img={img}
+              />
             ))}
           </ul>
         )}
@@ -161,17 +160,15 @@ const Comment = ({
       {data.replies.length > 0 && (
         <ul className="flex flex-col gap-4 border-l-2 border-lightGray pl-4">
           {data.replies.map((i) => (
-            <>
-              <Reply
-                onReply={onReply}
-                onDeleteReply={() => onDeleteReply(i.id)}
-                desktop={desktop}
-                user={user}
-                key={i.id}
-                data={i}
-                img={img}
-              />
-            </>
+            <Reply
+              key={i.id}
+              onReply={onReply}
+              onDeleteReply={() => onDeleteReply(i.id)}
+              desktop={desktop}
+              user={user}
+              data={i}
+              img={img}
+            />
           ))}
         </ul>
       )}
@@ -180,6 +177,16 @@ const Comment = ({
       )}
     </>
   );
+};
+
+Comment.propTypes = {
+  data: PropTypes.object,
+  user: PropTypes.string,
+  desktop: PropTypes.bool,
+  onDelete: PropTypes.func,
+  img: PropTypes.string,
+  onReply: PropTypes.func,
+  onDeleteReply: PropTypes.func,
 };
 
 export default Comment;

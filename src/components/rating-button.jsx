@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const RatingButton = ({ score }) => {
   const [count, setCount] = useState(score);
@@ -42,6 +43,10 @@ const RatingButton = ({ score }) => {
       </div>
     </>
   );
+};
+
+RatingButton.propTypes = {
+  score: PropTypes.number,
 };
 
 export default RatingButton;

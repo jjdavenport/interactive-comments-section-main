@@ -6,6 +6,7 @@ import Profile from "./profile";
 import Textarea from "./textarea";
 import BlueButton from "./blue-button";
 import Add from "./add";
+import PropTypes from "prop-types";
 
 const Reply = ({ data, user, desktop, onDeleteReply, img, onReply }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -164,6 +165,15 @@ const Reply = ({ data, user, desktop, onDeleteReply, img, onReply }) => {
       )}
     </>
   );
+};
+
+Reply.propTypes = {
+  data: PropTypes.object,
+  user: PropTypes.string,
+  desktop: PropTypes.bool,
+  onDeleteReply: PropTypes.func,
+  img: PropTypes.string,
+  onReply: PropTypes.func,
 };
 
 export default Reply;
