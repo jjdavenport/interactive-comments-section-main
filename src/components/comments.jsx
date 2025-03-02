@@ -3,68 +3,18 @@ import { useState } from "react";
 import Comment from "./comment";
 import data from "../assets/data.json";
 import Add from "./add";
+import useComments from "../hooks/comment-provider";
 
 const Comments = () => {
   const [comments, setComments] = useState(data.comments);
   const [comment, setComment] = useState("");
   const desktop = useMediaQuery({ minWidth: 768 });
-
-  const addComment = (comment) => {
-    const newComment = {
-      id: Date.now(),
-      content: comment,
-      createdAt: "just now",
-      score: 0,
-      user: data.currentUser,
-      replies: [],
-    };
-    setComments((prev) => [...prev, newComment]);
-  };
-
-  const addReply = (commentId, reply, replyTo) => {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment.id === commentId
-          ? {
-              ...comment,
-              replies: [
-                ...comment.replies,
-                {
-                  id: Date.now(),
-                  content: reply,
-                  createdAt: "just now",
-                  score: 0,
-                  user: data.currentUser,
-                  replyingTo: replyTo,
-                },
-              ],
-            }
-          : comment,
-      ),
-    );
-  };
-
-  const deleteComment = (id) => {
-    setComments((prev) => prev.filter((comment) => comment.id !== id));
-  };
-
-  const deleteReply = (commentId, replyId) => {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment.id === commentId
-          ? {
-              ...comment,
-              replies: comment.replies.filter((reply) => reply.id !== replyId),
-            }
-          : comment,
-      ),
-    );
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    comment !== "" ? addComment(comment) & setComment("") : null;
-  };
+  const { addReply, deleteComment, deleteReply, handleSubmit } = useComments({
+    comment,
+    setComments,
+    data,
+    setComment,
+  });
 
   return (
     <>

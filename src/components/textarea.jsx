@@ -24,7 +24,7 @@ const Textarea = ({ value, onChange, placeholder, autoFocus }) => {
 
 Textarea.propTypes = {
   autoFocus: PropTypes.bool.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
