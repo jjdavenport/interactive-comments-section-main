@@ -17,7 +17,7 @@ const Textarea = ({ value, onChange, placeholder, autoFocus }) => {
       onChange={onChange}
       placeholder={placeholder}
       value={value}
-      className="h-32 w-full cursor-pointer resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 text-darkBlue transition-colors duration-300 ease-in-out placeholder:text-grayishBlue hover:border-moderateBlue focus:border-moderateBlue focus:outline-none md:h-28"
+      className="h-32 w-full cursor-pointer resize-none appearance-none rounded-lg border border-lightGray px-5 py-3 text-darkBlue caret-moderateBlue transition-colors duration-300 ease-in-out placeholder:text-grayishBlue hover:border-moderateBlue focus:border-moderateBlue focus:outline-none md:h-28"
     />
   );
 };

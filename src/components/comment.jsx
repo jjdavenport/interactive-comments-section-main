@@ -37,7 +37,7 @@ const Comment = ({
     return (
       <>
         <li>
-          <article className="flex gap-6 rounded-lg bg-white p-4">
+          <article className="flex gap-6 rounded-lg bg-white p-6">
             <RatingButton score={data.score} />
             <div className="flex w-full flex-col items-end gap-4">
               <div className="flex w-full justify-between">

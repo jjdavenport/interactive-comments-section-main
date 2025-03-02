@@ -68,7 +68,7 @@ const Comments = () => {
 
   return (
     <>
-      <main className="flex flex-1 flex-col justify-center gap-4 px-4 py-8 md:max-w-screen-md">
+      <main className="flex flex-1 flex-col justify-center gap-4 px-4 py-16 md:max-w-screen-md">
         <ul className="flex flex-col gap-4">
           {comments.map((i) => (
             <Comment
